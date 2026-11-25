@@ -1,0 +1,31 @@
+### (Extensión REST Client) Crear unidad
+POST http://localhost:3001/api/unidades
+Content-Type: application/json
+x-cuenta-id: admin-1
+
+{ "codigo": "T1-101", "torre": "1" }
+
+### Crear propietario (reemplaza el UUID de la unidad)
+POST http://localhost:3001/api/propietarios
+Content-Type: application/json
+x-cuenta-id: admin-1
+
+{ "tipoDocumento": "CC", "numeroDocumento": "123456", "nombres": "Ana", "apellidos": "Pérez",
+  "email": "ana@example.com", "telefono": "3001234567", "unidadIds": ["UUID_UNIDAD"] }
+
+### Historial del propietario
+GET http://localhost:3001/api/propietarios/UUID_PROPIETARIO/historial
+
+### Registrar autorización de imagen facial
+POST http://localhost:3001/api/propietarios/UUID_PROPIETARIO/imagen-facial/autorizacion
+Content-Type: application/json
+x-cuenta-id: admin-1
+
+{ "evidencia": "Formato de consentimiento #45" }
+
+### Revocar autorización (elimina imagen)
+DELETE http://localhost:3001/api/propietarios/UUID_PROPIETARIO/imagen-facial/autorizacion
+x-cuenta-id: admin-1
+
+### Auditoría
+GET http://localhost:3001/api/auditoria?entidad=PROPIETARIO
